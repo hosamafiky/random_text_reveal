@@ -35,7 +35,6 @@ class RandomTextReveal extends StatefulWidget {
     this.textDirection = TextDirection.ltr,
     this.locale,
     this.maxLines,
-    this.randomSpeedFactor = 1,
     this.overflow,
     this.softWrap,
     this.textAlign,
@@ -76,9 +75,6 @@ class RandomTextReveal extends StatefulWidget {
   /// The maximum number of lines of the text to be displayed before cropping
   final int? maxLines;
 
-  /// The factor by which the speed of the animation is multiplied.
-  final int randomSpeedFactor;
-
   /// The type of overflow in text
   final TextOverflow? overflow;
 
@@ -98,8 +94,6 @@ class RandomTextReveal extends StatefulWidget {
 class RandomTextRevealState extends State<RandomTextReveal> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-
-  int _frameCounter = 0;
 
   @override
   void dispose() {
@@ -122,12 +116,7 @@ class RandomTextRevealState extends State<RandomTextReveal> with TickerProviderS
       end: widget.text.length.toDouble(),
     ).animate(curvedAnimation)
       ..addListener(() {
-        _frameCounter++;
-
-        // تحديث كل N frames تقريبًا (كل 1 = سريع، 2 = أبطأ، ...الخ)
-        if (_frameCounter % widget.randomSpeedFactor == 0 || _animation.value == widget.text.length.toDouble()) {
-          setState(() {});
-        }
+        setState(() {});
       });
 
     if (widget.shouldPlayOnStart) {
