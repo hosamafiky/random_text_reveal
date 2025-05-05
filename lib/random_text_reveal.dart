@@ -99,7 +99,7 @@ class RandomTextRevealState extends State<RandomTextReveal> with TickerProviderS
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  int _lastUpdatedIndex = -1;
+  int _frameCounter = 0;
 
   @override
   void dispose() {
@@ -122,11 +122,10 @@ class RandomTextRevealState extends State<RandomTextReveal> with TickerProviderS
       end: widget.text.length.toDouble(),
     ).animate(curvedAnimation)
       ..addListener(() {
-        int currentIndex = _animation.value.toInt();
+        _frameCounter++;
 
-        // تحديث كل randomSpeedFactor steps
-        if (currentIndex != _lastUpdatedIndex && currentIndex % widget.randomSpeedFactor == 0) {
-          _lastUpdatedIndex = currentIndex;
+        // تحديث كل N frames تقريبًا (كل 1 = سريع، 2 = أبطأ، ...الخ)
+        if (_frameCounter % widget.randomSpeedFactor == 0 || _animation.value == widget.text.length.toDouble()) {
           setState(() {});
         }
       });
