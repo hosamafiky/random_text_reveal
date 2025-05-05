@@ -1,0 +1,19 @@
+name: random_text_reveal
+description: A text animation package with random text reveal effect where the text reveals itself letter by letter (used mostly in movies)
+version: 0.0.7
+homepage: https://github.com/foxtrotravi/random_text_reveal
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
